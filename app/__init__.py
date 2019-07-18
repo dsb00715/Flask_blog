@@ -14,7 +14,7 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__, template_folder='templates')
+    app = Flask(__name__)
     app.config.from_object(Config)
 
     _db.init_app(app)
@@ -25,9 +25,11 @@ def create_app(config_class=Config):
     from app.Users.routes import users
     from app.main.routes import main
     from app.Posts.routes import posts
+    from app.errors.handlers import errors
 
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(posts)
+    app.register_blueprint(errors)
 
     return app
